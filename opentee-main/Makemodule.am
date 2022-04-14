@@ -1,28 +1,38 @@
-# opentee-engine executable
+# opentee-engine and tee_tester executables
 
-bin_PROGRAMS += opentee-engine
+bin_PROGRAMS += opentee-engine tee_tester
 
-opentee_engine_includes = \
+includes_ = \
 	include/core_control_resources.h \
 	include/conf_parser.h \
 	opentee-main/args.h \
 	opentee-main/ini.h
 
-opentee_engine_SOURCES = ${opentee_engine_include} \
+sources_ = ${opentee_engine_include} \
 	opentee-main/args.c \
 	opentee-main/conf_parser.c \
-	opentee-main/ini.c \
-	opentee-main/main.c
+	opentee-main/ini.c
 
-opentee_engine_CFLAGS = ${AM_CFLAGS} \
+cflags_ = ${AM_CFLAGS} \
 	-iquote $(top_srcdir)/include \
 	-iquote $(top_srcdir)/opentee-main
 
-opentee_engine_LDFLAGS = ${AM_LDFLAGS} \
+ldflags_ = ${AM_LDFLAGS} \
 	-rdynamic \
 	-lpthread \
 	-ldl
 
-opentee_engine_LDADD = \
+ldadd_ = \
 	libCommonApi.la
 
+opentee_engine_includes = ${includes_}
+opentee_engine_SOURCES = ${sources_} opentee-main/main.c
+opentee_engine_CFLAGS = ${cflags_}
+opentee_engine_LDFLAGS = ${ldflags_}
+opentee_engine_LDADD = ${ldadd_}
+
+tee_tester_includes = ${includes_}
+tee_tester_SOURCES = ${sources_} opentee-main/tester_main.c
+tee_tester_CFLAGS = ${cflags_}
+tee_tester_LDFLAGS = ${ldflags_}
+tee_tester_LDADD = ${ldadd_}
