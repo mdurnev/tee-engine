@@ -1,8 +1,8 @@
 # libLauncherApi shared library
 
-lib_LTLIBRARIES += libLauncherApi.la
+lib_LTLIBRARIES += libLauncherApi.la libLauncher1Api.la
 
-libLauncherApi_la_includes = \
+includes__ = \
 	include/core_control_resources.h \
 	include/ta_exit_states.h \
 	internal_api/tee_data_types.h \
@@ -13,25 +13,35 @@ libLauncherApi_la_includes = \
 	launcher/ta_process.h \
 	launcher/ta_signal_handler.h
 
-libLauncherApi_la_SOURCES = ${libLauncherApi_la_includes} \
+sources__ = ${libLauncherApi_la_includes} \
 	launcher/dynamic_loader.c \
-	launcher/launcher_mainloop.c \
 	launcher/ta_internal_thread.c \
 	launcher/ta_io_thread.c \
 	launcher/ta_process.c \
 	launcher/ta_signal_handler.c
 
-libLauncherApi_la_CFLAGS = ${AM_CFLAGS} \
+cflags__ = ${AM_CFLAGS} \
 	-iquote $(top_srcdir)/include \
 	-iquote $(top_srcdir)/internal_api \
 	-iquote $(top_srcdir)/launcher
 
-libLauncherApi_la_LDFLAGS = ${AM_LDFLAGS} \
+ldflags__ = ${AM_LDFLAGS} \
 	-lpthread \
 	-ldl \
 	-lrt
 
-libLauncherApi_la_LIBADD =\
+libadd__ = \
 	libInternalApi.la \
 	libCommonApi.la
 
+libLauncherApi_la_includes = ${includes__}
+libLauncherApi_la_SOURCES = ${sources__} launcher/launcher_mainloop.c
+libLauncherApi_la_CFLAGS = ${cflags__}
+libLauncherApi_la_LDFLAGS = ${ldflags__}
+libLauncherApi_la_LIBADD = ${libadd__}
+
+libLauncher1Api_la_includes = ${includes__}
+libLauncher1Api_la_SOURCES = ${sources__} launcher/launcher1_mainloop.c
+libLauncher1Api_la_CFLAGS = ${cflags__}
+libLauncher1Api_la_LDFLAGS = ${ldflags__}
+libLauncher1Api_la_LIBADD = ${libadd__}
