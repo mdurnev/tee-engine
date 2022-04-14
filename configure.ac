@@ -7,10 +7,10 @@ AC_INIT([opentee-core], [0.0.0], [https://github.com/Open-TEE/tee-engine/issues]
 AM_INIT_AUTOMAKE([foreign subdir-objects])
 AC_CONFIG_SRCDIR([internal_api/tee_time_api.h])
 AC_CONFIG_MACRO_DIR([m4])
+AC_PROG_CC([afl-gcc gcc cc])
 AC_USE_SYSTEM_EXTENSIONS
 
 # Checks for programs.
-AC_PROG_CC
 LT_INIT
 
 # Checks for libraries.
