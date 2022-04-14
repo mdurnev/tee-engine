@@ -1,0 +1,8 @@
+#!/bin/sh
+
+test_app=$1
+
+rm -rf findings
+mkdir findings
+
+OPENTEE_TEST_CA=/opt/OpenTee/bin/${test_app} afl-fuzz -i testcases -o findings -- /opt/OpenTee/bin/tee_tester -f
